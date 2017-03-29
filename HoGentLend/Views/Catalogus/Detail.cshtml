@@ -1,0 +1,344 @@
+﻿@using HoGentLend.Models.Domain
+@using HoGentLend.ViewModels
+@model HoGentLend.ViewModels.MateriaalViewModel
+
+@{
+    ViewBag.Title = "Detail";
+}
+
+<div id="success" class="alert alert-success"></div>
+
+<div id="details" class="row">
+    <div class="col-md-12">
+        @Html.ActionLink("Terug naar materiaallijst", "Index", "Catalogus", new { @class = "btn btn-primary" })
+    </div>
+
+    <div class="page-header col-md-12">
+        <h2>@Html.DisplayFor(model => model.Name)</h2>
+    </div>
+
+    <div class="col-md-3 col-sm-3 col-xs-12">
+        @if (@Model.PhotoBase64 != null)
+        {
+            <img src="data:image/png;base64,@Model.PhotoBase64" alt="@Model.Name" class="col-md-12 col-sm-12 col-xs-12 img-reponsive img-thumbnail details-img"/>
+        }
+        else
+        {
+            <img src="~/Content/Images/default-placeholder.png" alt="Geen afbeelding beschikbaar" class="col-md-12 col-sm-12 col-xs-12 img-reponsive img-thumbnail details-img"/>
+        }
+
+        @* Add to whistlist *@
+        <p>
+            @if (ViewBag.InWishlist)
+            {
+                <button type="submit" id="@Model.Id" class="voegtoe voegtoe-active col-md-12 col-sm-12 col-sx-12">
+                    <div class="heart">
+                        <span class="glyphicon glyphicon-heart"></span>
+                    </div>
+                </button>
+            }
+            else
+            {
+                <button type="submit" id="@Model.Id" class="voegtoe col-md-12 col-sm-12 col-sx-12">
+                    <div class="heart">
+                        <span class="glyphicon glyphicon-heart-empty"></span>
+                    </div>
+                </button>
+            }
+        </p>
+    </div>
+
+    <div class="col-md-9 col-sm-9 col-xs-12">
+      
+        <div class="row">
+            @* Description *@
+            <div class="col-md-12">
+                <p>
+                    <strong>@Html.DisplayNameFor(model => model.Description)</strong>
+                </p>
+                <p class="description">
+                    @if (!string.IsNullOrEmpty(Model.Description))
+            {
+                        @Html.DisplayFor(model => model.Description)
+                    }
+                    else
+                    {
+                        @("Geen beschrijving")
+                    }
+                </p>
+            </div>
+        </div>
+
+        <hr/>
+
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            @* Is Lendable *@
+            <p>
+                <strong>@Html.DisplayNameFor(model => model.IsLendable)</strong>
+            </p>
+            <p>@(Model.IsLendable ? "Uitleenbaar" : "Niet uitleenbaar")</p>
+        </div>
+        <div class="col-md-6 col-sm-6">
+            @* Amount *@
+            <p>
+                <strong>@Html.DisplayNameFor(model => model.Amount)</strong>
+            </p>
+            <p>@Model.Amount</p>
+        </div>
+        <div class="col-md-6 col-sm-6">
+            @* Amount Not Available *@
+            <p>
+                <strong>@Html.DisplayNameFor(model => model.AmountNotAvailable)</strong>
+            </p>
+            <p>@Model.AmountNotAvailable</p>
+        </div>
+
+        <div class="col-md-6 col-sm-6">
+            @* Location *@
+            <p>
+                <strong>@Html.DisplayNameFor(model => model.Location)</strong>
+            </p>
+            <p>
+                @if (!string.IsNullOrEmpty(Model.Location))
+                {
+                    @Html.DisplayFor(model => model.Location)
+                }
+                else
+                {
+                    @("Geen locatie")
+                }
+            </p>
+        </div>
+
+
+        <div class="col-md-6 col-sm-6">
+            @* Doelgroepen *@
+            <p>
+                <strong>@Html.DisplayNameFor(model => model.Doelgroepen)</strong>
+            </p>
+            <p>
+                @if (Model.Doelgroepen != null && Model.Doelgroepen.Count > 0)
+                {
+                    foreach (string groep in Model.Doelgroepen)
+                    {
+                        @groep
+                        <br/>
+                    }
+                }
+                else
+                {
+                    @("Geen doelgroepen")
+                }
+            </p>
+        </div>
+        <div class="col-md-6 col-sm-6">
+            @* Leergebieden *@
+            <p>
+                <strong>@Html.DisplayNameFor(model => model.Leergebieden)</strong>
+            </p>
+            <p>
+                @if (Model.Leergebieden != null && Model.Leergebieden.Count > 0)
+                {
+                    foreach (string groep in Model.Leergebieden)
+                    {
+                        @groep
+                        <br/>
+                    }
+                }
+                else
+                {
+                    @("Geen leergebieden")
+                }
+
+
+            </p>
+        </div>
+    </div>
+        
+
+        <hr/>
+
+        @* Information for buying the item *@
+        <div class="bg-info info-buying">
+            <h3>@Model.Name aankopen</h3>
+            <p>
+                Onderstaande gegevens kan je gebruiken wanneer je een "@Model.Name" opnieuw moet aankopen omdat het/ze stuk is/zijn. Wil je graag één aankopen voor persoonlijk gebruik dan kan dit ook.
+            </p>
+            <p>
+                @* Name Firma *@
+                <strong>@Html.DisplayNameFor(model => model.FirmaName)</strong><br/>
+                @if (!string.IsNullOrEmpty(Model.FirmaName))
+                {
+                    @Html.DisplayFor(model => model.FirmaName)
+                }
+                else
+                {
+                    @("Geen naam")
+                }
+
+                <br/>
+
+                @* Email Firma *@
+                <strong>@Html.DisplayNameFor(model => model.FirmaEmail)</strong><br/>
+                @if (!string.IsNullOrEmpty(Model.FirmaEmail))
+                {
+                    @Html.DisplayFor(model => model.FirmaEmail)
+                }
+                else
+                {
+                    @("Geen e-mailadres")
+                }
+
+                <br/>
+
+                @* Article code *@
+                <strong>@Html.DisplayNameFor(model => model.ArticleCode)</strong><br/>
+                @if (!string.IsNullOrEmpty(Model.ArticleCode))
+                {
+                    @Html.DisplayFor(model => model.ArticleCode)
+                }
+                else
+                {
+                    @("Geen artikelcode")
+                }
+
+                <br/>
+
+                @* Price *@
+                <strong>@Html.DisplayNameFor(model => model.Price)</strong><br/>
+                @string.Format("{0:C}", Model.Price)
+
+            </p>
+        </div>
+
+        <hr/>
+
+        <h3>Overzicht reservaties van @Model.Name</h3>
+
+        @if (ViewBag.reservaties.Count == 0)
+        {
+            <p>Er zijn nog geen reservaties voor "@Html.DisplayFor(model => model.Name)".</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Ophaaldatum</th>
+                        <th>Indiendatum</th>
+                        <th>E-mailadres</th>
+                        <th>Hoeveelheid</th>
+                    </tr>
+
+                    @foreach (List<ReservatieLijnViewModel> rlv in ViewBag.reservaties.Values)
+                {
+
+                        <tr>
+                            <td rowspan="@(rlv.Count + 1)">@Html.DisplayFor(model => rlv[0].OphaalMoment)</td>
+                        </tr>
+
+                        foreach (ReservatieLijnViewModel rl in rlv)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(model => rl.IndienMoment)</td>
+                                <td><a href="mailto:@Html.DisplayFor(model => rl.LenerEmail)">@Html.DisplayFor(model => rl.LenerEmail)</a></td>
+                                <td>@Html.DisplayFor(model => rl.Amount)</td>
+                            </tr>
+                        }
+
+                    }
+
+                    <tr>
+                        <th>Ophaaldatum</th>
+                        <th>Indiendatum</th>
+                        <th>E-mailadres</th>
+                        <th>Hoeveelheid</th>
+                    </tr>
+                </table>
+            </div>
+        }
+
+        <hr/>
+
+        @* Chart *@
+        <div id="chart" class="col-md-12 col-sm-12" style="height: 400px;"></div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="~/Scripts/wishlist.js"></script>
+    <script>
+        // Graph
+        $(function () {
+            var week = new Date(new Date().getTime()),
+                day = week.getDay(),
+                diffToMonday = week.getDate() - day + (day === 0 ? -6 : 1),
+                lastMonday = new Date(week.setDate(diffToMonday));
+
+            Highcharts.setOptions({
+                global: {
+                    useUTC: false
+                },
+                lang: {
+                    months: ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
+                    shortMonths: ['jan', 'feb', 'maa', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
+                    weekdays: ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'],
+                }
+            });
+
+            $('#chart').highcharts({
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'Reservatie grafiek'
+                },
+                xAxis: {
+                    title: {
+                        text: 'Weken',
+                    },
+                    type: 'datetime',
+                    tickInterval: 3600 * 1000 * 24 * 7 * @ViewBag.lendingPeriod, // 1 week
+                },
+                yAxis: {
+                    title: {
+                        text: 'Aantal',
+                    },
+                    tickInterval: 1,
+                },
+
+                plotOptions: {
+                    series: {
+                        pointStart: lastMonday.getTime(),
+                    }
+                },
+
+                series: [
+                    {
+                        name: 'Aantal gereserveerd',
+                        data: [
+                            @for (var i = 0; i < 12; i++)
+                                {
+                                    @String.Format("{0},", ViewBag.chartList[i])
+                                }
+                        ],
+                        pointInterval: 3600 * 1000 * 24 * 7 * @ViewBag.lendingPeriod,
+                    },
+                    {
+                        name: 'Aantal beschikbaar',
+                        data: [
+                            @for (var i = 0; i < 12; i++)
+                            {
+                                    @String.Format("{0},", ((Model.Amount - Model.AmountNotAvailable - ViewBag.chartList[i]) > -1)? (Model.Amount - Model.AmountNotAvailable - ViewBag.chartList[i]):0 )
+                            }
+                        ],
+                        pointInterval: 3600 * 1000 * 24 * 7 * @ViewBag.lendingPeriod,
+                    }
+                ],
+            });
+        });
+    </script>
+}

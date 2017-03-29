@@ -1,0 +1,77 @@
+﻿@using HoGentLend.Models.Domain
+@model IEnumerable<HoGentLend.ViewModels.MateriaalViewModel>
+
+<div id="catalog" class="row">
+    @if (!Model.Any())
+    {
+        <p class="col-md-12">We konden geen materialen vinden voor jouw zoekopdracht.</p>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <div id="item-@item.Id" class="col-md-4">
+                <div class="catalog-item col-md-12">
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-12">
+                            <!-- IMAGE -->
+                            @if (item.PhotoBase64 != null)
+                            {
+                                <div class="catalog-img" style="background-image: url(data:image/png;base64,@item.PhotoBase64)">
+                                    <a href="data:image/png;base64,@item.PhotoBase64" data-lightbox="@item.ShortName"></a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="catalog-img"></div>
+                            }
+                            <div class="clearfix">
+                                @if (item.IsInWishList)
+                                {
+                                    <button id="@item.Id" class="voegtoe voegtoe-active">
+                                        <div class="heart">
+                                            <span class="glyphicon glyphicon-heart"></span>
+                                        </div>
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button id="@item.Id" class="voegtoe" title="Toevoegen aan verlanglijstje">
+                                        <div class="heart">
+                                            <span class="glyphicon glyphicon-heart-empty"></span>
+                                        </div>
+                                    </button>
+                                }
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-8 col-xs-12">
+                            <h4>
+                                @Html.ActionLink(item.ShortName, "Detail", new { id = item.Id })
+
+                            </h4>
+
+
+                            <p>
+                                @if (!string.IsNullOrEmpty(item.DescriptionShort))
+                                {
+                                    @Html.DisplayFor(model => item.DescriptionShort)
+                                }
+                                else
+                                {
+                                    @("Geen beschrijving")
+                                }
+                            </p>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    }
+
+</div>
+

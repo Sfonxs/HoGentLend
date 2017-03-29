@@ -1,0 +1,215 @@
+﻿
+@model IEnumerable<HoGentLend.ViewModels.MateriaalViewModel>
+@using System.Linq
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Verlanglijstje</h2>
+
+<p>
+    Dit is jouw verlanglijstje. Je kan materialen toevoegen aan dit verlanglijstje vanuit de catalogus. Na het toevoegen van je favoriete materialen kan je kiezen hoeveel stuks van elk materiaal je wilt reserveren.
+    Na het kiezen van een begindatum en kan je jouw reservatie plaatsen.
+</p>
+<hr />
+
+<div id="wishlist">
+
+
+    @if (!Model.Any())
+    {
+        <p>Er zit nog niets in je verlanglijstje.</p>
+    }
+    else
+    {
+        using (Html.BeginForm("Add", "Reservatie", FormMethod.Post))
+        {
+            int counter = -1;
+            foreach (var item in Model)
+            {
+                counter = counter + 1;
+                <div class="row wishlist-item">
+                    <div class="col-md-12">
+                        <div class="col-md-3">
+
+                            <!-- IMAGE -->
+                            @if (item.PhotoBase64 != null)
+                            {
+                                <div class="wishlist-img" style="background-image: url(data:image/png;base64,@item.PhotoBase64)">
+                                    <a href="data:image/png;base64,@item.PhotoBase64" data-lightbox="@item.Name"></a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="wishlist-img"></div>
+                            }
+
+                        </div>
+                        <div class="col-md-5">
+                            @Html.ActionLink(item.Name, "Detail", "Catalogus", new { id = item.Id }, null)
+                        </div>
+                        <div class="col-md-1">
+                                <label for="amount">Aantal</label>
+                        </div>
+
+                        <div class="col-md-1">
+                            <input type="hidden" name="reservatiepartmodels[@counter].MateriaalId" value="@item.Id" />
+                            <input type="number" id="amount" class="form-control" min="0" name="reservatiepartmodels[@counter].Amount" value="0" />
+
+                        </div>
+                        <div class="col-md-2">
+                            @*<button type="submit" class="btn btn-default" name="bevestig" id="@(item.Id)">
+                                    Verwijder uit verlanglijstje
+                                </button>*@
+                            @Html.ActionLink("Verwijder uit verlanglijstje", "Remove", "Verlanglijst", new { materiaalId = item.Id }, new { @class = "btn btn-default confirmation-delete", @data_name = item.Name })
+                        </div>
+                    </div>
+                </div>
+
+                <hr />
+            }
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-6 col-sm-6 padding-0">
+                        <div class="form-group">
+                            <label for="date">Ophaaldatum (om @ViewBag.ophaalTijd)</label>
+                            <input type="text" id="date" name="ophaalDatum" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 padding-0">
+                        <div class="form-group">
+                            <label for="date">Indiendatum (om @ViewBag.indienTijd)</label>
+                            <p id="indienDatum">-</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" name="bevestig" value="-1">
+                Reserveren
+            </button>
+
+        }
+    }
+
+</div>
+
+<!-- Modal box -->
+<div id="confirmation-delete" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Bevestiging</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Je staat op het punt "<strong><span class="name"></span></strong>" uit je verlanglijstje te verwijderen. Ben je zeker?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button id="confirm" type="button" class="btn btn-primary">Ja</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Nee</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- --- -->
+
+@section scripts
+{
+    <script>
+        // Confirmation Delete
+        $('.confirmation-delete').click(function(e) {
+            var a = $(this);
+
+            var confirmationDelete = $('#confirmation-delete');
+            confirmationDelete.find('.name').html(a.attr('data-name'));
+            confirmationDelete.modal('show');
+
+            $('#confirm').click(function() {
+                window.location.replace(a.attr('href'));
+            });
+
+            e.preventDefault();
+        });
+
+
+        // Ajax Post Call Wishlist
+        $('button.reserveer').click(function (e) {
+            var button = $(this);
+            var id = button.attr('id');
+
+            $.post("/Verlanglijst/Add", {id: id}, function(data) {
+                if (data.status === 'success') {
+                    button.attr('disabled', 'disabled');
+                    button.addClass('reserveer-active');
+                    button.html('<span class="glyphicon glyphicon-heart"></span> In verlanglijstje');
+
+                    var success = $("#success");
+                    success.html(data.message);
+                    success.slideDown();
+
+                    setTimeout(function() {
+                        success.slideUp();
+                    }, 3500);
+                }
+            });
+        });
+
+        // Date picker
+        Date.prototype.addDays = function(days) {
+            var dat = new Date(this.valueOf());
+            dat.setDate(dat.getDate() + days);
+            return dat;
+        }
+        window.addEventListener("load", function() {
+            var ophaalDag = "@ViewBag.ophaalDag";
+            ophaalDag = ophaalDag.toLowerCase();
+            var dagToNr = {
+                maandag: 1,
+                dinsdag: 2,
+                woensdag: 3,
+                donderdag: 4,
+                vrijdag: 5,
+                zaterdag: 6,
+                zondag: 0
+            };
+            var ophaaldagNr = dagToNr[ophaalDag];
+
+            $('#date').datepicker({
+                format: "dd/mm/yyyy",
+                weekStart: 1,
+                language: "nl-BE",
+                daysOfWeekDisabled: "0,1,2,3,4,5,6".replace("," + ophaaldagNr, ""),
+                daysOfWeekHighlighted: String(ophaaldagNr),
+                todayHighlight: true,
+                startDate: "@ViewBag.vandaag"
+            });
+            $("#date").change(function() {
+                var dt = $("#date").datepicker("getDate");
+                if (dt == null) {
+                    $("#indienDatum").text("-");
+                    return;
+                }
+                var nrOfWeeks = @ViewBag.aantalWeken;
+                dt = dt.addDays(nrOfWeeks * 7);
+                dt.setDate(dt.getDate() + (dagToNr["@ViewBag.indienDag"] - dt.getDay()));
+                var dd = dt.getDate();
+                var mm = dt.getMonth() + 1;
+
+                var yyyy = dt.getFullYear();
+                if (dd < 10) {
+                    dd = '0' + dd
+                }
+                if (mm < 10) {
+                    mm = '0' + mm
+                }
+                var indienDatumStr = dd + '/' + mm + '/' + yyyy;
+                $("#indienDatum").text(indienDatumStr);
+            });
+        });
+    </script>
+}

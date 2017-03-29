@@ -1,0 +1,433 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* Menu bar*/
+
+.navbar-inverse {
+    background: #009d7e;
+    border-bottom: 1px solid #00876C;
+}
+
+.navbar-inverse .navbar-nav > li > a, 
+.navbar-inverse .navbar-brand {
+    color: #ffffff;
+    transition: background .1s linear;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:active,
+.navbar-inverse .navbar-brand:active,
+.navbar-inverse .navbar-brand:hover {
+    background: #00876C;
+    color: #fff;
+}
+
+/*
+ * Responsive nav button.
+ */
+
+.navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus,
+.navbar-inverse .collapsed {
+    background: #009d7e;
+}
+
+.navbar-inverse .navbar-toggle {
+    border: 1px solid #00876C;
+}
+
+.navbar-inverse .navbar-toggle .icon-bar {
+    background: #fff;
+}
+
+/*
+ * Dropdown
+ */
+
+.navbar-inverse .navbar-nav > .open > a,
+.nav .open>a {
+    background: #009d7e !important;
+    color: #fff !important;
+}
+
+.navbar-collapse {
+    border: 0;
+}
+
+/* Catalog */
+
+#catalog .catalog-item {
+    margin-bottom: 15px;
+    padding-left: 0;
+    padding: 10px;
+    border: 1px solid #eeeeee;
+    box-shadow: #000 1px 1px 5px -4px;
+    transition: 0.1s background linear;
+    height: 175px;
+}
+
+#catalog .catalog-item:hover {
+    background: #eeeeee;
+}
+
+#catalog .catalog-item .row {
+    margin: 0;
+}
+
+#catalog .catalog-item .catalog-img {
+    position: relative;
+    height: 100px;
+    background: url("Images/default-placeholder.png") no-repeat center;
+    background-size: contain;
+}
+
+#catalog .catalog-item .catalog-img a {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 25px;
+    height: 25px;
+    background: rgba(0,0,0,.8) url("Images/enlarge-icon.png") no-repeat center;
+    background-size: 55%;
+
+}
+
+#catalog .catalog-item h4 {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+#catalog .catalog-item p {
+    height: 60px;
+}
+
+
+/* Add to wishlist button */
+
+.voegtoe {
+    float: right;
+    display: inline-block;
+    padding: 0;
+    margin-right:15px;
+    height: 30px;
+    background: #fff;
+    border: 1px solid #bebebe;
+    border-radius: 3px;
+    box-shadow: #000 1px 1px 5px -4px;
+    transition: all .2s linear;
+    width: 100%;
+    margin: 10px 0 0 0;
+}
+
+.voegtoe .heart {
+    display: inline-block;
+    padding: 0 10px;
+    text-align: center;
+    border: none;
+    color: #000;
+    transition: all .2s linear;
+}
+
+.voegtoe:focus {
+    outline:0;
+}
+
+.voegtoe:hover {
+    background: #fff;
+    border-color: rgb(229, 67, 67);
+}
+
+.voegtoe:hover .heart {
+    color: rgb(229, 67, 67);
+}
+
+
+/* When material is in wishlist the add button is colored */
+.voegtoe-active {
+    background: #fff;
+    border-color: rgb(229, 67, 67);
+}
+
+.voegtoe-active .heart {
+    color: rgb(229, 67, 67);
+}
+/* --- */
+
+.voegtoe .heart span {
+    line-height: 20px;
+}
+
+#details .voegtoe {
+    height: 40px;
+    margin: 15px 0 0 0;
+}   
+
+.heart .glyphicon {
+    top: 0;
+}
+
+.heart {
+    width: 100%;
+}
+
+
+/* Detail */
+
+#details {
+    margin-top: 35px;
+}
+
+#details .details-img {
+    max-width: 280px;
+}
+
+#details .available {
+    display: inline-block;
+    padding-right: 10px;
+    line-height: 30px;
+    background: #38C23C;
+    color: #ffffff;
+}
+
+#details .available .amount {
+    display: inline-block;
+    margin-right: 5px;
+    padding: 0 10px;
+    background: #2EA732;
+    text-align: center;
+}
+
+#details .reserveer {
+    display: block;
+    margin-top: 15px;
+    padding: 5px 10px;
+    line-height: 30px;
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 3px;
+    box-shadow: #000 1px 1px 5px -4px;
+    transition: all .2s linear;
+}
+
+#details .reserveer:hover,
+#details .reserveer-active {
+    text-decoration: none;
+    border-color: rgb(229, 67, 67);
+    color: rgb(229, 67, 67);
+}
+
+#details .reserveer .glyphicon {
+    margin-right: 5px;
+}
+
+#details .description {
+    max-width: 600px;
+}
+
+#details .info-buying {
+    padding: 15px;
+}
+
+#details .info-buying h3 {
+    margin-top: 0;
+}
+
+/* Login */
+
+#login {
+    padding: 0;
+}
+
+#login > .row {
+    margin: 0;
+}
+
+#login .branding {
+    position: fixed;
+    min-height: 100%;
+    background: #ffffff url('Images/login-bg.jpg') left no-repeat;
+    background-size: cover;
+}
+
+#login .hogent-lend-brand {
+    padding: 25px 0;
+}
+
+#login .login-aside {
+    height: 100%;
+    padding-top: 120px;
+    padding-left: 50px;
+    background: #ffffff;
+}
+
+/* Filter */
+
+#filter {
+    padding: 15px;
+    background: #eeeeee;
+}
+
+#filter .form-group {
+    margin-bottom: 0;
+}
+
+#filter .filterbutton {
+    background: #009d7e;
+    border: 1px solid #00876C;
+    transition: background .2s linear;
+}
+
+#filter .filterbutton:hover {
+    background: #00876C;
+}
+
+#filter input, #filter select, #filter a {
+    max-width: 100%;
+    margin: 5px 0;
+}
+
+/* Wishlist */
+
+#wishlist .wishlist-item .wishlist-img {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    background: url("Images/default-placeholder.png") no-repeat center;
+    background-size: contain;
+}
+
+
+/* Reservation detail */
+
+#reservatiedetails .status {
+    cursor: default;
+}
+
+#reservatiedetails .status:hover {
+    color: #ffffff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+#reservatiedetails .status:hover {
+    color: #ffffff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+#reservatiedetails .wishlist-img {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    background: url("Images/default-placeholder.png") no-repeat center;
+    background-size: contain;
+}
+
+
+/* Misc */
+
+.bg-info {  
+    background: #d9edf7;
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.padding-0 {
+    padding: 0;
+}
+
+.padding-0 {
+    padding: 0;
+}
+
+#success, #error {
+    position: fixed; 
+    bottom: 0; 
+    left: 0; 
+    width: 100%; 
+    margin: 0;
+    display: none;
+    z-index: 100; 
+    text-align: center; 
+}
+
+@media (min-width : 1200px) {
+    #catalog .catalog-item p {
+        height: 40px;
+    }
+}
+
+@media (min-width : 400px) {
+    .heart .glyphicon {
+        left: -1px;
+        top: 1px;
+    }
+}
+
+@media (max-width : 992px) {
+    #catalog .catalog-item p {
+        height: 40px;
+    }
+    .wishlist-item [class*="col-"] {
+        margin-bottom: 5px;
+    }
+    #wishlist .wishlist-item .wishlist-img {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+@media (max-width : 400px) {
+    #catalog .catalog-item p {
+        height: 60px;
+    }
+
+    #catalog .voegtoe{
+        font-size: 0.8em;
+    }
+
+    #login .login-aside {
+    padding-top: 30px;
+    padding-left: 15px;
+    background: #ffffff;
+}
+
+}
+
+@media (max-width : 767px) {
+
+    #catalog .catalog-item {
+        height: 275px;
+    }
+
+    #catalog .voegtoe{
+        width: 40%;
+        margin: 5px 30% 0 30%;
+    }
+}

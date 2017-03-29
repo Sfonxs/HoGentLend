@@ -1,0 +1,38 @@
+﻿
+
+
+<div id="filter">
+
+    @using (Html.BeginForm("Index", "Catalogus", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="col-md-3">
+                @Html.TextBox("filter", (string)ViewBag.filter , new { @class = "form-control", @placeholder="Zoekterm",id=""})
+                
+            </div>
+            <div class="col-md-3">
+                @Html.DropDownList("doelgroepId", ViewBag.Doelgroepen as SelectList,
+                    "--selecteer doelgroep--", new {@class = "form-control"})
+            </div>
+            <div class="col-md-3">
+                @Html.DropDownList("leergebiedId", ViewBag.Leergebieden as SelectList,
+                    "--selecteer leergebied--", new {@class = "form-control"})
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input type="submit" value="Zoeken" class="btn btn-primary form-control filterbutton" />
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.ActionLink("Wis Filter", "Index", "Catalogus", new object { }, new { @class = "btn btn-primary form-control filterbutton"})
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    }
+</div>

@@ -1,0 +1,60 @@
+﻿@using HoGentLend.ViewModels
+@model LoginViewModel
+
+
+@{
+    Layout = null;
+}
+
+
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Inloggen - HoGent Lend </title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+
+<body id="login">
+
+<div class="row">
+    <div class="col-md-8 col-sm-5 hidden-xs branding"></div>
+    <div class="col-md-4 col-sm-5 col-md-offset-8 col-sm-offset-5 login-aside">
+        @using (Html.BeginForm("Login", "Account", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+        {
+            <img src="~/Content/Images/logo.png" alt="HoGent Logo"/>
+
+            <h2 class="hogent-lend-brand">HoGent Lend</h2>
+
+            @Html.AntiForgeryToken()
+            <h5>Typ uw e-mailadres en wachtwoord</h5>
+
+            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+            <div class="form-group">
+                @Html.LabelFor(m => m.UserId, new {@class = "col-md-12"})
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.UserId, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(m => m.UserId, "", new {@class = "text-danger"})
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new {@class = "col-md-12"})
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.Password, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(m => m.Password, "", new {@class = "text-danger"})
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <input type="submit" value="Log in" class="btn btn-primary"/>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>

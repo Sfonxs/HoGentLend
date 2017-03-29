@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="HoGentLend.Controllers.AccountController">
+    <Position X="0.5" Y="0.5" Width="11.75" />
+    <TypeIdentifier>
+      <HashCode>AAABBCCAAAAAAAAAAAFgAAAAAAAAgAIAAAAQAAQgAAA=</HashCode>
+      <FileName>Controllers\AccountController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HoGentLend.Controllers.CatalogusController">
+    <Position X="0.5" Y="6" Width="6.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAgAEQAAAAAAAAAAAEAAAAACAA=</HashCode>
+      <FileName>Controllers\CatalogusController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HoGentLend.Controllers.VerlanglijstController">
+    <Position X="7.25" Y="6" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAQAAAAAAAAABAQAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\VerlanglijstController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HoGentLend.Controllers.ReservatieController">
+    <Position X="0.5" Y="9.25" Width="7.25" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAgBAQAAAAAAAIAAAEAAAAACAA=</HashCode>
+      <FileName>Controllers\ReservatieController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
